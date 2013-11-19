@@ -1,0 +1,14 @@
+{
+  "name": "spotify-playground",
+  "version": "0.0.0",
+  "dependencies": {
+    "sass-bootstrap": "~3.0.0",
+    "modernizr": "~2.6.2",
+    "jquery": "~1.10.2",
+    "typeahead.js": "~0.9.3"
+  },
+  "devDependencies": {},
+  "resolutions": {
+    "jquery": ">= 1.9.0"
+  }
+}
