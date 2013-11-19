@@ -14,6 +14,7 @@ $('#ta').typeahead([
 							value: parsedResponse.artists[i].name,
 							name: parsedResponse.artists[i].name,
 							popularity: parsedResponse.artists[i].popularity,
+							type: parsedResponse.artists[i].type,
 							href: parsedResponse.artists[i].href
 						});
 					}
@@ -36,6 +37,7 @@ $('#ta').typeahead([
 						datums.push({
 							value: parsedResponse.albums[i].name,
 							name: parsedResponse.albums[i].name,
+							type: parsedResponse.albums[i].type,
 							popularity: parsedResponse.albums[i].popularity,
 							href: parsedResponse.albums[i].href
 						});
@@ -62,6 +64,7 @@ $('#ta').typeahead([
 						datums.push({
 							value: parsedResponse.tracks[i].name,
 							name: parsedResponse.tracks[i].name,
+							type: parsedResponse.tracks[i].type,
 							popularity: parsedResponse.tracks[i].popularity,
 							href: parsedResponse.tracks[i].href
 						});
@@ -72,7 +75,7 @@ $('#ta').typeahead([
 		},
 		header: '<span class="my-header">Tracks</span>',
 	}
-]).on('typeahead:selected', function(obj, datum) {
+]).on('typeahead:selected', function(obj, datum) {	
 	$('#play-btn').attr('src', 'https://embed.spotify.com/?uri=' + datum.href + '&view=coverart').show();
 });
 
