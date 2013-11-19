@@ -28,12 +28,21 @@ $('#ta').typeahead([
 
 				for (var i = 0; i <= max; i++) {
 					if( parsedResponse.albums[i] ) {
-						datums.push(parsedResponse.albums[i].name);
+						datums.push({
+							value: parsedResponse.albums[i].name,
+							name: parsedResponse.albums[i].name,
+							popularity: parsedResponse.albums[i].popularity,
+							href: parsedResponse.albums[i].href
+						});
 					}
 				}
+				console.log(datums);
+
 				return datums;
 			}
 		},
+		engine: Hogan,
+		template: '<span>{{value}}</span>',
 		header: '<span class="my-header">Albums</span>'
 	},
 	{
@@ -51,9 +60,12 @@ $('#ta').typeahead([
 				return datums;
 			}
 		},
-		header: '<span class="my-header">Tracks</span>'
+		header: '<span class="my-header">Tracks</span>',
 	}
-]);
+]).on('typeahead:selected', function(obj, datum) {
+	console.log(obj);
+	console.log(datum);
+});
 
 $('.typeahead.input-sm').siblings('input.tt-hint').addClass('hint-small');
 $('.typeahead.input-lg').siblings('input.tt-hint').addClass('hint-large');
