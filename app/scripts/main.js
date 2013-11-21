@@ -3,16 +3,12 @@
 function myFilter(parsedResponse) {
 	var datums = [],
 			type = parsedResponse.info.type + '',
-			list = parsedResponse[type + 's'],
-	max = {
-		artist: 5,
-		album: 5,
-		track: 10
-	}[type];
+			list = parsedResponse[type + 's'];
 
 	// thumbnail_url = https://embed.spotify.com/oembed/?url=
 
-	for (var i = 0; i <= max || i < list.length; i++) {
+	for (var i in list) {
+
 		if( list[i] ) {
 			datums.push({
 				value: list[i].name,
@@ -36,7 +32,7 @@ $('#ta').typeahead([
 			url: '//ws.spotify.com/search/1/artist.json?q=%QUERY',
 			filter: myFilter
 		},
-		header: '<span class="my-header">Artists</span>'
+		header: '<span class="my-header">Artists</span>',
 	},
   {
 		name: 'Albums',
@@ -66,12 +62,14 @@ $('#ta').typeahead([
 		$.ajax({
 			url: 'http://ws.spotify.com/search/1/track.json?q=artist:' + datum.value,
 			success: function(data) {
+				var topNumber = 11;
+
 				widgetUrl += 'spotify:trackset:Popular Songs:';
 
-				for (var i = 0; i < data.tracks.length && i < 11; i++) {
+				for (var i = 0; i < data.tracks.length && i < topNumber; i++) {
 					widgetUrl += data.tracks[i].href.split(':')[2] + ',';
 				}
-				
+
 				$('#play-btn').attr('src', widgetUrl).show();
 			}
 		})
