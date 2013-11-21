@@ -63,7 +63,7 @@ $('#ta').typeahead([
       success: function(data) {
         var topNumber = 11;
 
-        widgetUrl += 'spotify:trackset:Popular Songs:';
+        widgetUrl += 'spotify:trackset:Top tracks for ' + data.info.query.split(':')[1] + ':';
 
         for (var i = 0; i < data.tracks.length && i < topNumber; i++) {
           widgetUrl += data.tracks[i].href.split(':')[2] + ',';
