@@ -27,6 +27,8 @@ function myFilter(parsedResponse) {
 	return datums;
 }
 
+/* global Hogan:false */
+
 $('#ta').typeahead([
 	{
 		name: 'Artists',
@@ -57,11 +59,31 @@ $('#ta').typeahead([
 		header: '<span class="my-header">Tracks</span>',
 	}
 ]).on('typeahead:selected', function(obj, datum) {
-	$('#play-btn').attr('src',
-		'//embed.spotify.com/?uri=' +
-		datum.href +
-		(datum.type !== 'album' ? '&view=coverart' : '')
-	).show();
+
+	var widgetUrl = '//embed.spotify.com/?uri=';
+
+	if( datum.type === 'artist' ) {
+		$.ajax({
+			url: 'http://ws.spotify.com/search/1/track.json?q=artist:' + datum.value,
+			success: function(data) {
+				widgetUrl += 'spotify:trackset:Popular Songs:';
+
+				for (var i = 0; i < data.tracks.length && i < 11; i++) {
+					widgetUrl += data.tracks[i].href.split(':')[2] + ',';
+				}
+				
+				$('#play-btn').attr('src', widgetUrl).show();
+			}
+		})
+	}
+	else {
+		widgetUrl += datum.href;
+		widgetUrl += (datum.type !== 'album' ? '&view=coverart' : '');
+
+		$('#play-btn').attr('src', widgetUrl).show();
+	}
+
+
 });
 
 $('.typeahead.input-sm').siblings('input.tt-hint').addClass('hint-small');
