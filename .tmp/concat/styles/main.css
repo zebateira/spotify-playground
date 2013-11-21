@@ -9834,20 +9834,26 @@ body {
   padding: 40px;
 }
 
-/* line 105, ../../app/styles/main.scss */
+/* line 107, ../../app/styles/main.scss */
+
+.form-control {
+  border-radius: 2px;
+}
+
+/* line 112, ../../app/styles/main.scss */
 
 .form-control:focus {
   border-color: #80cc28;
 }
 
-/* line 110, ../../app/styles/main.scss */
+/* line 118, ../../app/styles/main.scss */
 
 .twitter-typeahead .tt-query,
 .twitter-typeahead .tt-hint {
   margin-bottom: 0;
 }
 
-/* line 115, ../../app/styles/main.scss */
+/* line 123, ../../app/styles/main.scss */
 
 .twitter-typeahead .tt-hint {
   display: block;
@@ -9859,7 +9865,7 @@ body {
   border-radius: 2px;
 }
 
-/* line 126, ../../app/styles/main.scss */
+/* line 134, ../../app/styles/main.scss */
 
 .twitter-typeahead .hint-small {
   height: 30px;
@@ -9869,7 +9875,7 @@ body {
   line-height: 1.5;
 }
 
-/* line 135, ../../app/styles/main.scss */
+/* line 143, ../../app/styles/main.scss */
 
 .twitter-typeahead .hint-large {
   height: 45px;
@@ -9879,7 +9885,7 @@ body {
   line-height: 1.33;
 }
 
-/* line 143, ../../app/styles/main.scss */
+/* line 151, ../../app/styles/main.scss */
 
 .tt-dropdown-menu {
   min-width: 160px;
@@ -9895,41 +9901,41 @@ body {
   background-clip: padding-box;
 }
 
-/* line 163, ../../app/styles/main.scss */
+/* line 171, ../../app/styles/main.scss */
 
 .tt-suggestion {
   display: block;
   padding: 3px 20px;
 }
 
-/* line 168, ../../app/styles/main.scss */
+/* line 176, ../../app/styles/main.scss */
 
 .tt-suggestion.tt-is-under-cursor {
   color: #fff;
   background-color: #999;
 }
 
-/* line 173, ../../app/styles/main.scss */
+/* line 181, ../../app/styles/main.scss */
 
 .tt-suggestion.tt-is-under-cursor a {
   color: #fff;
 }
 
-/* line 177, ../../app/styles/main.scss */
+/* line 185, ../../app/styles/main.scss */
 
 .tt-suggestion p {
   margin: 0;
   text-align: left;
 }
 
-/* line 182, ../../app/styles/main.scss */
+/* line 190, ../../app/styles/main.scss */
 
 .header h3 {
   color: #80cc28;
   font-weight: bold;
 }
 
-/* line 187, ../../app/styles/main.scss */
+/* line 195, ../../app/styles/main.scss */
 
 .my-header {
   text-align: left;
@@ -9941,7 +9947,7 @@ body {
   color: #eee;
 }
 
-/* line 198, ../../app/styles/main.scss */
+/* line 206, ../../app/styles/main.scss */
 
 .by-artist {
   font-style: italic;
@@ -9950,19 +9956,19 @@ body {
   padding-left: 10px;
 }
 
-/* line 206, ../../app/styles/main.scss */
+/* line 214, ../../app/styles/main.scss */
 
 .search-form {
   width: 100%;
 }
 
-/* line 209, ../../app/styles/main.scss */
+/* line 217, ../../app/styles/main.scss */
 
 .search-form * {
   width: inherit;
 }
 
-/* line 214, ../../app/styles/main.scss */
+/* line 222, ../../app/styles/main.scss */
 
 #play-btn {
   display: hidden;
@@ -9970,7 +9976,7 @@ body {
   margin-top: 50px;
 }
 
-/* line 220, ../../app/styles/main.scss */
+/* line 228, ../../app/styles/main.scss */
 
 #play-btn #outerWidgetContainer {
   width: 100% !important;
