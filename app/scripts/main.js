@@ -1,23 +1,12 @@
 'use strict';
 
-function trackFilter(parsedResponse){
-  return doFilter('track',parsedResponse);
-}
-
-function artistFilter(parsedResponse){
-  return doFilter('artist',parsedResponse);
-}
-
-function albumFilter(parsedResponse){
-  return doFilter('album',parsedResponse);
-}
-
-function doFilter(type,parsedResponse) {
-
+function doFilter(type, parsedResponse) {
   var datums = [];
   var group = parsedResponse[type + 's'];
 
-  if(group==null) return datums;
+  if (group === null) {
+      return datums;
+  }
 
   var list = group.items;
 
@@ -37,6 +26,18 @@ function doFilter(type,parsedResponse) {
   }
 
   return datums;
+}
+
+function trackFilter(parsedResponse){
+  return doFilter('track', parsedResponse);
+}
+
+function artistFilter(parsedResponse){
+  return doFilter('artist', parsedResponse);
+}
+
+function albumFilter(parsedResponse){
+  return doFilter('album', parsedResponse);
 }
 
 /* global Hogan:false */
@@ -74,21 +75,21 @@ $('#ta').typeahead([
 
   var widgetUrl = '//embed.spotify.com/?uri=';
 
-  if( datum.type === 'artist' ) {
+  if (datum.type === 'artist') {
     $.ajax({
-      url: 'http://ws.spotify.com/search/1/track.json?q=artist:' + datum.value,
+      url: datum.href + '/top-tracks?country=us',
       success: function(data) {
         var topNumber = 11;
 
-        widgetUrl += 'spotify:trackset:Top tracks for ' + data.info.query.split(':')[1] + ':';
+        widgetUrl += 'spotify:trackset:Top tracks for ' + datum.value;
 
         for (var i = 0; i < data.tracks.length && i < topNumber; i++) {
-          widgetUrl += data.tracks[i].href.split(':')[2] + ',';
+          widgetUrl += data.tracks[i].uri.split(':')[2] + ',';
         }
 
         $('#play-btn').attr('src', widgetUrl).show();
       }
-    })
+  });
   }
   else {
     widgetUrl += datum.uri;
