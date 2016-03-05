@@ -1,9 +1,14 @@
 'use strict';
 
-function myFilter(parsedResponse) {
-  var datums = [],
-      type = parsedResponse.info.type + '',
-      list = parsedResponse[type + 's'];
+function doFilter(type, parsedResponse) {
+  var datums = [];
+  var group = parsedResponse[type + 's'];
+
+  if (group === null) {
+      return datums;
+  }
+
+  var list = group.items;
 
   // thumbnail_url = https://embed.spotify.com/oembed/?url=
 
@@ -14,6 +19,7 @@ function myFilter(parsedResponse) {
         popularity: list[i].popularity,
         type: type,
         href: list[i].href,
+        uri: list[i].uri,
         artist: list[i].artists ? list[i].artists[0].name : list[i].name
       });
     }
@@ -22,22 +28,34 @@ function myFilter(parsedResponse) {
   return datums;
 }
 
+function trackFilter(parsedResponse){
+  return doFilter('track', parsedResponse);
+}
+
+function artistFilter(parsedResponse){
+  return doFilter('artist', parsedResponse);
+}
+
+function albumFilter(parsedResponse){
+  return doFilter('album', parsedResponse);
+}
+
 /* global Hogan:false */
 
 $('#ta').typeahead([
   {
     name: 'Artists',
     remote: {
-      url: '//ws.spotify.com/search/1/artist.json?q=%QUERY',
-      filter: myFilter
+      url: '//api.spotify.com/v1/search?type=artist&q=%QUERY',
+      filter: artistFilter
     },
     header: '<span class="my-header">Artists</span>',
   },
   {
     name: 'Albums',
     remote: {
-      url: '//ws.spotify.com/search/1/album.json?q=%QUERY',
-      filter: myFilter
+      url: '//api.spotify.com/v1/search?type=album&q=%QUERY',
+      filter: albumFilter
     },
     engine: Hogan,
     template: '<span>{{value}}</span><span class="by-artist">by {{artist}}</span>',
@@ -46,8 +64,8 @@ $('#ta').typeahead([
   {
     name: 'Tracks',
     remote: {
-      url: '//ws.spotify.com/search/1/track.json?q=%QUERY',
-      filter: myFilter
+      url: '//api.spotify.com/v1/search?type=track&q=%QUERY',
+      filter: trackFilter
     },
     engine: Hogan,
     template: '<span>{{value}}</span><span class="by-artist">by {{artist}}</span>',
@@ -57,24 +75,24 @@ $('#ta').typeahead([
 
   var widgetUrl = '//embed.spotify.com/?uri=';
 
-  if( datum.type === 'artist' ) {
+  if (datum.type === 'artist') {
     $.ajax({
-      url: 'http://ws.spotify.com/search/1/track.json?q=artist:' + datum.value,
+      url: datum.href + '/top-tracks?country=us',
       success: function(data) {
         var topNumber = 11;
 
-        widgetUrl += 'spotify:trackset:Top tracks for ' + data.info.query.split(':')[1] + ':';
+        widgetUrl += 'spotify:trackset:Top tracks for ' + datum.value;
 
         for (var i = 0; i < data.tracks.length && i < topNumber; i++) {
-          widgetUrl += data.tracks[i].href.split(':')[2] + ',';
+          widgetUrl += data.tracks[i].uri.split(':')[2] + ',';
         }
 
         $('#play-btn').attr('src', widgetUrl).show();
       }
-    })
+  });
   }
   else {
-    widgetUrl += datum.href;
+    widgetUrl += datum.uri;
     widgetUrl += (datum.type !== 'album' ? '&view=coverart' : '');
 
     $('#play-btn').attr('src', widgetUrl).show();
